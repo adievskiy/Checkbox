@@ -143,7 +143,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 }
-                if (step == 4){
+                if (step == 4) {
                     flags.forEach { flag ->
                         val selected = selectedFlag == flag
                         Box(
@@ -170,26 +170,42 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
-                Box (
+                Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    if (step < 5) {
-                        Button(
-                            onClick = {
-                                if (step == 1) {
-                                    step++
-                                } else if (step in 2..4) {
-                                    checkedOne = false
-                                    checkedTwo = false
-                                    checkedThree = false
-                                    checkedFour = false
-                                    step++
-                                    if (stepResult == 1.0) result++
-                                    stepResult = 0.0
-                                }
-                            },
-                        ) { Text(text = "Продолжить") }
+
+                    Button(
+                        onClick = {
+                            if (step == 1) {
+                                step++
+                            } else if (step in 2..4) {
+                                checkedOne = false
+                                checkedTwo = false
+                                checkedThree = false
+                                checkedFour = false
+                                step++
+                                if (stepResult == 1.0) result++
+                                stepResult = 0.0
+                            } else {
+                                checkedOne = false
+                                checkedTwo = false
+                                checkedThree = false
+                                checkedFour = false
+                                step = 1
+                                result = 0
+                                stepResult = 0.0
+                                selectedFlag = flags[0]
+                            }
+                        },
+                    ) {
+                        Text(
+                            text = if (step == 1) {
+                                "Начать"
+                            } else if (step in 2..4) {
+                                "Ответить"
+                            } else "Начать сначала"
+                        )
                     }
                 }
             }
